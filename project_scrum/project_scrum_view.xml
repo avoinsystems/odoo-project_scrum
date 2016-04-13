@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
   <data>
-    <menuitem id="menu_scrum_in_config" name="Scrum" parent="base.menu_definitions" sequence="3" />
+    <menuitem id="menu_scrum_in_config" name="Scrum" parent="base.menu_main_pm" sequence="3" />
     <!--task search-->
     <record id="view_ps_task_search" model="ir.ui.view">
       <field name="name">project.scrum.sprint.task</field>
@@ -160,13 +160,13 @@
                         <page string="Retrospective">
                             <!--page for retropective-->
                             <field name="retrospective"/>
-                        </page> 
-                    </notebook> 
+                        </page>
+                    </notebook>
                     </sheet>
                 </form>
             </field>
         </record>
-        
+
         <!--sprint calendar view-->
         <record id="view_ps_sprint_calendar" model="ir.ui.view">
             <field name="name">project.scrum.sprint.calendar</field>
@@ -628,8 +628,8 @@
       <field name="context">{"search_default_current": 1}</field>
       <field name="search_view_id" ref="view_ps_sprint_search" />
       <field name="help">
-        The scrum agile methodology is used in software development projects. In this methodology, 
-        a sprint is a short period of time (e.g. one month) during which the team implements a list of product backlogs. 
+        The scrum agile methodology is used in software development projects. In this methodology,
+        a sprint is a short period of time (e.g. one month) during which the team implements a list of product backlogs.
         The sprint review is organized when the team presents its work to the customer and product owner.
       </field>
     </record>
@@ -649,8 +649,8 @@
       </field>
       <field name="search_view_id" ref="view_ps_sprint_search" />
       <field name="help">
-        The scrum agile methodology is used in software development projects. In this methodology, 
-        a sprint is a short period of time (e.g. one month) during which the team implements a list of product backlogs. 
+        The scrum agile methodology is used in software development projects. In this methodology,
+        a sprint is a short period of time (e.g. one month) during which the team implements a list of product backlogs.
         The sprint review is organized when the team presents its work to the customer and product owner.
       </field>
     </record>
