@@ -6,6 +6,10 @@
             <field name="model">hr.public_holiday</field>
             <field name="arch" type="xml">
                 <form string="Create a Public Holiday">
+                    <header>
+                        <button name="create_leaves" string="Create Leave" help="Create leave for all employees" type="object" class="oe_highlight"/>
+                        <button name="remove_leaves" string="Remove Leave" help="Remove leave from all employees" type="object"/>
+                    </header>
                     <sheet>
                         <group col="4">
                             <field name="date" />
