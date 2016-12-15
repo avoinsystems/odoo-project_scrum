@@ -3,7 +3,8 @@
 # © 2016 Niboo SPRL (<https://www.niboo.be/>)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, exceptions, fields, models
+from openerp import api, exceptions, fields, models, tools
+from datetime import datetime
 
 
 class PublicHoliday(models.Model):
@@ -21,33 +22,78 @@ class PublicHoliday(models.Model):
             [('is_public_holiday', '=', True)])
         employee_ids = self.env['hr.employee'].search(
             [('company_id', '=', self.company_id.id)])
+        date_from, date_to = self.compensate_user_tz(self.date)
+
         values = {'name': self.name,
                   'type': 'remove',
                   'holiday_type': 'employee',
                   'holiday_status_id': holiday_status_id.id,
-                  'date_from': self.date,
-                  'date_to': self.date,
+                  'date_from': date_from,
+                  'date_to': date_to,
                   'number_of_days_temp': 1,
-                  'state': 'validate',
+                  'state': 'confirm',
                   }
 
-        error_list = []
+        error_list = ''
         for employee in employee_ids:
             values['employee_id'] = employee.id
             try:
-                # TODO find proper context call to send email with next wave instead of immediately
-                HRHolidays.with_context(for_sent=False).create(values)
+                leave = HRHolidays.sudo().create(
+                            values)
+                leave.holidays_validate()
             except Exception, e:
-                error_list.append('%s: %s\n' % (employee.name, e))
+                error_list = '%s- %s: %s\n' % (
+                error_list, employee.name, str(e.name))
 
         if error_list:
-            raise exceptions.ValidationError('The following errors were raised' % error_list)
+            raise exceptions.ValidationError(
+    '''
+    The leave entries could not be generated because of the following errors:
+
+    %s
+    Please resolve the problem for every concerned employee and try again.
+    '''
+                % error_list)
 
     @api.multi
     def remove_leaves(self):
         self.ensure_one()
+        HRHolidays = self.env['hr.holidays']
+        holiday_status_id = self.env['hr.holidays.status'].search(
+            [('is_public_holiday', '=', True)])
+        date_from, date_to = self.compensate_user_tz(self.date)
         employee_ids = self.env['hr.employee'].search(
-            [('company_id', '=', self.company_id)])
+            [('company_id', '=', self.company_id.id)])
+        holiday_ids = self.env['hr.holidays'].search(
+            [('holiday_status_id', '=', holiday_status_id.id),
+             ('date_from', '>=', date_from),
+             ('date_to', '<=', date_to),
+             ('employee_id', 'in', employee_ids.ids)])
+
+        for holiday in holiday_ids:
+            holiday.state = 'draft'
+            holiday.unlink()
+
+    def compensate_user_tz(self, date):
+        """
+        Take date and compensate for user timezone
+        :param date:
+        :return:
+        """
+        date_obj = datetime.strptime(date,
+                    tools.DEFAULT_SERVER_DATE_FORMAT)
+        date_from = datetime.combine(date_obj, datetime.min.time())
+        date_to = datetime.combine(date_obj, datetime.max.time())
+        user_tz_offset = fields.Datetime.context_timestamp(
+                            self.sudo(self._uid), date_from).tzinfo._utcoffset
+        date_from_tz_comp = date_from - user_tz_offset
+        date_to_tz_comp = date_to - user_tz_offset
+        date_from_tz_comp_str = date_from_tz_comp.strftime(
+                                    tools.DEFAULT_SERVER_DATETIME_FORMAT)
+        date_to_tz_comp_str = date_to_tz_comp.strftime(
+                                    tools.DEFAULT_SERVER_DATETIME_FORMAT)
+
+        return date_from_tz_comp_str, date_to_tz_comp_str
 
     _sql_constraints = [
         ('unique_date',
@@ -68,4 +114,5 @@ class HRHolidaysStatus(models.Model):
             if self.env['hr.holidays.status'].search(
                     [('is_public_holiday', '=', True),
                      ('id', '!=', holiday_status.id)]).ids:
-                raise exceptions.ValidationError('You can only have one leave type set as Public Holiday')
+                raise exceptions.ValidationError(
+                    'You can only have one leave type set as Public Holiday')
