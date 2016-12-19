@@ -113,6 +113,6 @@ class HRHolidaysStatus(models.Model):
         for holiday_status in self:
             if self.env['hr.holidays.status'].search(
                     [('is_public_holiday', '=', True),
-                     ('id', '!=', holiday_status.id)]).ids:
+                     ('id', '!=', holiday_status.id)]):
                 raise exceptions.ValidationError(
                     'You can only have one leave type set as Public Holiday')
