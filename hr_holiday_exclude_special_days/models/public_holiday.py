@@ -32,6 +32,7 @@ class PublicHoliday(models.Model):
                   'date_to': date_to,
                   'number_of_days_temp': 1,
                   'state': 'confirm',
+                  'is_batch': True,
                   }
 
         error_list = ''

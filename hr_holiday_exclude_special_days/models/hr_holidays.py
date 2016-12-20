@@ -10,6 +10,8 @@ from openerp import api, fields, models, tools
 class HRHolidays(models.Model):
     _inherit = "hr.holidays"
 
+    is_batch = fields.Boolean(default=False)
+
     # Replace XML onchange with api.onchange for more functionality
     @api.onchange('employee_id')
     def onchange_employee(self):
