@@ -34,5 +34,9 @@
             <field name="domain_force">[(1, '=', 1)]</field>
         </record>
 
+        <record id="account_analytic_distribution.analytic_distribution_comp_rule" model="ir.rule">
+            <field name="active" eval="False"/>
+        </record>
+
     </data>
 </openerp>
