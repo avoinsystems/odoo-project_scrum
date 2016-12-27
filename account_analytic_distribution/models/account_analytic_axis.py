@@ -16,9 +16,14 @@ class AccountAnalyticAxis(models.Model):
     analytic_account_ids = fields.One2many('account.analytic.account',
                                            'analytic_account_axis_id',
                                            'Analytic Accounts')
+    mandatory = fields.Boolean('Mandatory')
 
     def check_percent_on_axis(self, distributions):
+        mandatory_axis = self.env['account.analytic.axis'].search(
+            [('mandatory', '=', True)])
         distribution_by_axis = {}
+        for axis in mandatory_axis:
+            distribution_by_axis.setdefault(axis, [])
         for distribution in distributions:
             axis = distribution.analytic_account_id.analytic_account_axis_id
             distribution_by_axis.setdefault(axis, [])
@@ -28,7 +33,7 @@ class AccountAnalyticAxis(models.Model):
         for axis, distributions in distribution_by_axis.iteritems():
             try:
                 axis._check_percent_on_axis(distributions)
-            except Exception, e:
+            except exceptions.ValidationError, e:
                 message += e.name
 
         if message:
@@ -37,6 +42,12 @@ class AccountAnalyticAxis(models.Model):
 
     def _check_percent_on_axis(self, distributions):
         total = sum(distribution.rate for distribution in distributions)
-        if round(total, 2) != 100.0 and round(total, 2) != 0.0:
+        total = round(total, 2)
+        if total != 100.0 and total != 0.0:
             raise exceptions.ValidationError(
-                'Axis %s has a total of %s %% \n' % (self.name, total))
+                'Axis %s has a total distribution of %s%% \n' %
+                (self.name, total))
+        if self.mandatory and total != 100.0:
+            raise exceptions.ValidationError(
+                'Axis %s must have a total distribution of 100%% '
+                '(Currently: %s)\n' % (self.name, total))
