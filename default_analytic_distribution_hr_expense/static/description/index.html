@@ -1,6 +1,7 @@
 <div id="loempia_tabs">
     <ul role="navigation" class="nav nav-tabs" data-tabs="tabs">
         <li class="active"><a href="#desc" data-toggle="tab">Description</a></li>
+        <li><a href="#doc" data-toggle="tab">Documentation</a></li>
         <li><a href="#rel" data-toggle="tab">Related Modules</a></li>
     </ul>
 </div>
@@ -9,8 +10,8 @@
     <div id="desc" class="tab-pane active">
         <section class="oe_container">
             <div class="oe_row oe_spaced">
-                <h2 class="oe_slogan">Account Analytic Distribution Cross Company</h2>
-                <h3 class="oe_slogan">Manage analytic accounting through multiple companies and multiple currencies</h3>
+                <h2 class="oe_slogan">Default Analytic Distribution for Expenses</h2>
+                <h3 class="oe_slogan">Automatically select the Analytic Distributions for your expenses!</h3>
                 <div class="oe_span6" style="display: block; margin: 0 auto; height:400px;">
                     <div style="display: inline-block; position: relative; z-index: 1;">
                         <img src="screen_niboo.png" style="margin: 0 auto; display: block; width: 425px;">
@@ -18,11 +19,12 @@
                     <img src="module_image.png" style="margin: 0 30px -335px 18px;display: block;position: relative;width: 389px;height: 222px;z-index: 0;top: -330px;"/>
                 </div>
                 <div class="oe_span6" style="font-size: 15px;">
-                    <p>In this module you can have separate analytic accounts in multiple companies in the same Odoo instance.</p>
-                    <p>This module also allows you to use several currencies in your companies.</p>
+                    <p>This module allows you to set default analytic distributions for each employee.</p>
+                    <p> These analytic distributions will be automatically set when the employee creates an expense.</p>
                 </div>
             </div>
         </section>
+
 
         <section class="oe_container oe_separator"/>
 
@@ -44,6 +46,23 @@
             </div>
         </section>
     </div>
+    <div id="doc" class="tab-pane">
+        <h2 class="oe_slogan">Configuration</h2>
+        <section class="oe_container">
+            <div class="oe_row oe_spaced">
+                <h3 class="oe_slogan">How to configure default analytic distributions</h3>
+                <div class="oe_span6">
+                    <img class="img img-responsive" src="set_default_analytic_distributions.png"/>
+                </div>
+                <div class="oe_span6" style="font-size: 15px;">
+                    <ol>
+                        <li>Go on the employee you want to set default analytic distributions for</li>
+                        <li>On the <b>HR Settings</b> tabs, select the <b>Default Analytic Distributions</b></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <div id="rel" class="tab-pane">
         <h2 class="oe_slogan">Related modules from Niboo</h2>
@@ -51,16 +70,15 @@
             <div class="oe_row oe_spaced">
                 <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
                     <div style="display: table-cell;vertical-align: middle;">
-                        <a href="https://apps.openerp.com/apps/modules/9.0/account_analytic_distribution">
-                            <img class="img img-responsive" style="border:1px solid lightgrey; padding: 5px;box-shadow: 4px 4px 8px lightgrey;" src="analytic_account_cover.png"/>
+                        <a href="https://apps.openerp.com/apps/modules/9.0/account_analytic_distribution_plan">
+                            <img class="img img-responsive" style="border:1px solid lightgrey; padding: 5px;box-shadow: 4px 4px 8px lightgrey;" src="account_analytic_distribution_plan_cover.png"/>
                         </a>
                     </div>
                 </div>
                 <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
                     <div style="font-size: 15px;display: table-cell;vertical-align: middle;">
-                        <h2>Account Analytic Distribution</h2>
-                        <p>Distribute your accounting move through multiple universe</p>
-                        <p>With this module, you can allocate multiple times the same amount to different analytic account</p>
+                        <h2>Account Analytic Distribution Plan</h2>
+                        <p>This module allows you to prepare plan for recurring distribution (like salary)</p>
                     </div>
                 </div>
             </div>
@@ -70,37 +88,19 @@
             <div class="oe_row oe_spaced">
                 <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
                     <div style="font-size: 15px;display: table-cell;vertical-align: middle;">
-                        <h2>Account Analytic Distribution Plan</h2>
-                        <p>This module allows you to prepare plan for recurring distribution (like salary)</p>
+                        <h2>Account Analytic Distribution Cross Company</h2>
+                        <p>In this module you can have separate analytic accounts in multiple companies in the same Odoo instance.</p>
+                        <p>This module also allows you to use several currencies in your companies.</p>
                     </div>
                 </div>
                 <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
                     <div style="display: table-cell;vertical-align: middle;">
-                        <a href="https://apps.openerp.com/apps/modules/9.0/account_analytic_distribution_plan">
-                            <img class="img img-responsive" style="border:1px solid lightgrey; padding: 5px;box-shadow: 4px 4px 8px lightgrey;" src="account_analytic_distribution_plan_cover.png"/>
+                        <a href="https://apps.openerp.com/apps/modules/9.0/account_analytic_distribution_cross_company">
+                            <img class="img img-responsive" style="border:1px solid lightgrey; padding: 5px;box-shadow: 4px 4px 8px lightgrey;" src="account_analytic_distribution_cross_company_cover.png"/>
                         </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="oe_container">
-            <div class="oe_row oe_spaced">
-                <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
-                    <div style="display: table-cell;vertical-align: middle;">
-                        <a href="https://apps.openerp.com/apps/modules/9.0/default_analytic_distribution_hr_expense">
-                            <img class="img img-responsive" style="border:1px solid lightgrey; padding: 5px;box-shadow: 4px 4px 8px lightgrey;" src="default_analytic_distribution_hr_expense.png"/>
-                        </a>
-                    </div>
-                </div>
-                <div class="oe_span6" style="display: table;height: 300px;overflow: hidden;">
-                    <div style="font-size: 15px;display: table-cell;vertical-align: middle;">
-                        <h2>Default Analytic Distribution for Expenses</h2>
-                        <p>Automatically select the Analytic Distributions for your expenses</p>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 </div>
-

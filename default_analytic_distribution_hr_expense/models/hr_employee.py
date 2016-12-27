@@ -8,5 +8,6 @@ from openerp import api, fields, models
 class HREmployee(models.Model):
     _inherit = 'hr.employee'
 
-    analytic_distribution_id = fields.Many2one('account.analytic.distribution',
-                                               'Default Analytic Distribution')
+    analytic_distribution_ids = fields.Many2many(
+        'account.analytic.distribution',
+        string='Default Analytic Distributions')

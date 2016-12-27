@@ -8,6 +8,7 @@
     'summary': 'Set a default analytic distribution for each employee',
     'website': 'https://www.niboo.be/',
     'version': '9.0.1.0.0',
+    'license': 'AGPL-3',
     'description': '''
 This module allows you to set a default analytic distribution for each
 employee. The default analytic distribution will automatically set the

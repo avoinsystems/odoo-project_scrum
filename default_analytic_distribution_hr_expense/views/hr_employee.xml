@@ -6,9 +6,8 @@
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="analytic_distribution_id"/>
+                <field name="analytic_distribution_ids" widget="many2many_tags"/>
             </xpath>
         </field>
     </record>
-        
 </odoo>

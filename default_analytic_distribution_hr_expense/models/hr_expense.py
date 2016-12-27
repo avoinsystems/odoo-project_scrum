@@ -10,7 +10,7 @@ class HRExpense(models.Model):
 
     @api.onchange('employee_id')
     def onchange_employee_id(self):
-        if self.employee_id and self.employee_id.analytic_distribution_id and \
+        if self.employee_id and self.employee_id.analytic_distribution_ids and\
                 not self.analytic_distribution_ids:
             self.analytic_distribution_ids = self.employee_id.\
-                analytic_distribution_id
+                analytic_distribution_ids
