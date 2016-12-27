@@ -15,5 +15,6 @@ class HRExpense(models.Model):
 
     @api.onchange('distribution_plan_id')
     def _onchange_distribution_plan_id(self):
-        self.analytic_distribution_ids = \
-            self.distribution_plan_id.analytic_distribution_ids
+        if self.distribution_plan_id:
+            self.analytic_distribution_ids = \
+                self.distribution_plan_id.analytic_distribution_ids
