@@ -41,8 +41,8 @@
             <field name="domain">[]</field>
         </record>
 
-        <menuitem name="Public Holiday Configuration" id="public_holiday_config" sequence="110"
-            parent="hr_holidays.menu_hr_holidays_root" action="public_holiday_action"/>
+        <menuitem name="Public Holidays" id="public_holiday_config" sequence="2"
+            parent="hr_holidays.menu_hr_holidays_configuration" action="public_holiday_action"/>
 
     </data>
 </openerp>

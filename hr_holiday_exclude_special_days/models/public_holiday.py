@@ -36,6 +36,8 @@ class PublicHoliday(models.Model):
                   }
 
         error_list = ''
+        exception_list = ''
+        message = ''
         for employee in employee_ids:
             values['employee_id'] = employee.id
             try:
@@ -43,18 +45,28 @@ class PublicHoliday(models.Model):
                             values)
                 leave.holidays_validate()
             except Exception, e:
-                error_list = '%s- %s: %s\n' % (
-                error_list, employee.name, str(e.name))
+                try:
+                    error_list = '%s- %s: %s\n' % (
+                    error_list, employee.name, str(e.name))
+                except:
+                    exception_list = '%s- %s\n' % (exception_list, e)
 
+        if exception_list:
+            message = \
+'''The following unexpected errors occurred:
+%sPlease contact the Administrator.
+----------
+''' % exception_list
         if error_list:
-            raise exceptions.ValidationError(
-    '''
-    The leave entries could not be generated because of the following errors:
+            message = \
+'''%sThe leave entries could not be generated because of the following errors:
 
-    %s
-    Please resolve the problem for every concerned employee and try again.
-    '''
-                % error_list)
+%s
+Please resolve the problem for every concerned employee and try again.
+''' % (message, error_list)
+
+        if message:
+             raise exceptions.ValidationError(message)
 
     @api.multi
     def remove_leaves(self):
