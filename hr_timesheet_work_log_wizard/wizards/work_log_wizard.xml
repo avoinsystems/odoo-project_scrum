@@ -11,8 +11,8 @@
                         <group string="Project and Task">
                             <field name="display_task" invisible="1"/>
                             <field name="display_product" invisible="1"/>
-                            <field name="task_id" attrs="{'invisible':[('display_task','=',False)]}"/>
-                            <field name="analytic_account_id" context="{'tree_view_ref':'hr_timesheet_work_log_wizard.view_account_analytic_account_list_worklog'}"/>
+                            <field name="task_id" attrs="{'invisible':[('display_task','=',False)]}" options="{'no_create': True}"/>
+                            <field name="analytic_account_id" context="{'tree_view_ref':'hr_timesheet_work_log_wizard.view_account_analytic_account_list_worklog'}" options="{'no_create': True}"/>
                         </group>
                         <group string="Time and Date">
                             <field name="date_started"/>
