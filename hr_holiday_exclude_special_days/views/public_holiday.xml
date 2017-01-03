@@ -7,8 +7,14 @@
             <field name="arch" type="xml">
                 <form string="Create a Public Holiday">
                     <header>
-                        <button name="create_leaves" string="Generate Leave Entries" help="Generate leave entries for all employees of this company" type="object" class="oe_highlight"/>
-                        <button name="remove_leaves" string="Remove Leave Entries" help="Remove the leave entries from all employees of this company" type="object"/>
+                        <button name="create_leaves" string="Generate Leave Entries"
+                                groups="base.group_configuration,base.group_hr_manager"
+                                help="Generate leave entries for all employees of this company"
+                                type="object" class="oe_highlight"/>
+                        <button name="remove_leaves" string="Remove Leave Entries"
+                                groups="base.group_configuration,base.group_hr_manager"
+                                help="Remove the leave entries from all employees of this company"
+                                type="object"/>
                     </header>
                     <sheet>
                         <group col="4">

@@ -93,9 +93,14 @@ class PublicHoliday(models.Model):
              ('date_to', '<=', date_to),
              ('employee_id', 'in', employee_ids.ids)])
 
-        for holiday in holiday_ids:
-            holiday.state = 'draft'
-            holiday.unlink()
+        if self.env.user.has_group('base.group_configuration') \
+                or self.env.user.has_group('base.group_hr_manager'):
+            for holiday in holiday_ids:
+                holiday.sudo().state = 'draft'
+                holiday.sudo().unlink()
+        else:
+            raise exceptions.ValidationError(
+                'You do not have the rights to delete leave entries')
 
     def compensate_user_tz(self, date):
         """
