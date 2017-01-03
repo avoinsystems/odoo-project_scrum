@@ -44,12 +44,16 @@ class PublicHoliday(models.Model):
                 'go to Configuration > Leave Types and tick the box "Public '
                 'Holiday" on the desired leave type.')
 
+        context = {'mail_create_nosubscribe': True,
+                   'mail_create_nolog': True,
+                   'mail_notrack': True,
+                   'tracking_disable': True}
+
         for employee in employee_ids:
             values['employee_id'] = employee.id
             try:
-                leave = HRHolidays.sudo().create(
-                    values)
-                leave.holidays_validate()
+                leave = HRHolidays.sudo().with_context(context).create(values)
+                leave.with_context(context).holidays_validate()
             except Exception, e:
                 try:
                     error_list = '%s- %s: %s\n' % (
