@@ -1,9 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"project_task_workflow_manager_access","project_task_workflow_manager_access","model_project_task_workflow","project.group_project_manager",1,1,1,1
-"project_task_step_manager_access","project_task_step_manager_access","model_project_task_step","project.group_project_manager",1,1,1,1
-"project_task_category_manager_access","project_task_category_manager_access","model_project_task_category","project.group_project_manager",1,1,1,1
-"project_task_workflow_user_access","project_task_workflow_user_access","model_project_task_workflow","project.group_project_user",1,0,0,0
-"project_task_step_user_access","project_task_step_user_access","model_project_task_step","project.group_project_user",1,0,0,0
-"project_task_category_user_access","project_task_category_user_access","model_project_task_category","project.group_project_user",1,0,0,0
-"project_task_step_portal_access","project_task_step_user_access","model_project_task_step","base.group_portal",1,0,0,0
-"project_task_category_portal_access","project_task_category_user_access","model_project_task_category","base.group_portal",1,0,0,0

@@ -1,4 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"version_state_step_link_manager_access","version_state_step_link_manager_access","model_version_state_step_link","project.group_project_manager",1,1,1,1
-"version_state_step_link_user_access","version_state_step_link_user_access","model_version_state_step_link","project.group_project_user",1,0,0,0
-"version_state_step_link_portal_access","version_state_step_link_portal_access","model_version_state_step_link","base.group_portal",1,0,0,0
