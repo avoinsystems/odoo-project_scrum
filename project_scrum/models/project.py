@@ -10,7 +10,7 @@ class ProjectScrumTeam(models.Model):
     _name = 'project.scrum.team'
 
     name = fields.Char('Name', required=True)
-    sprint_ids = fields.One2many('project.sprint', 'scrum_team_id', 'Sprints')
+    sprint_ids = fields.One2many('project.scrum.sprint', 'scrum_team_id', 'Sprints')
     project_ids = fields.One2many('project.project', 'scrum_team_id',
                                   'Projects')
 
@@ -22,7 +22,7 @@ class ProjectProject(models.Model):
 
 
 class ProjectSprint(models.Model):
-    _name = 'project.sprint'
+    _name = 'project.scrum.sprint'
     _rec_name = 'display_name'
     name = fields.Char('Name', required=True)
     display_name = fields.Char('Display Name', compute="_compute_display_name",
@@ -113,9 +113,13 @@ class ProjectSprint(models.Model):
     @api.depends('name', 'start_date', 'end_date')
     def _compute_display_name(self):
         for sprint in self:
-            sprint.display_name = '%s - %s/%s' % (sprint.name,
-                                                  sprint.end_date[8:10],
-                                                  sprint.end_date[5:7])
+            if sprint.end_date:
+                sprint.display_name = '%s - %s/%s' % (
+                    sprint.name,
+                    sprint.end_date[8:10],
+                    sprint.end_date[5:7])
+            else:
+                sprint.display_name = sprint.name
 
     _order = "start_date DESC"
 
@@ -123,7 +127,7 @@ class ProjectSprint(models.Model):
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
-    sprint_id = fields.Many2one('project.sprint', 'Sprint', required=True)
+    sprint_id = fields.Many2one('project.scrum.sprint', 'Sprint')
 
     @api.multi
     def go_to_sprint_action(self):

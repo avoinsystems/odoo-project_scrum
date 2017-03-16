@@ -29,7 +29,7 @@
 
         <record id="project_sprint_form" model="ir.ui.view">
             <field name="name">project_sprint_form</field>
-            <field name="model">project.sprint</field>
+            <field name="model">project.scrum.sprint</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
@@ -117,7 +117,7 @@
         <act_window id="project_sprint_action"
                     name="Sprints"
                     groups="project.group_project_manager"
-                    res_model="project.sprint"
+                    res_model="project.scrum.sprint"
                     view_mode="tree,form"
                     context="{}"
                     view_type="form"/>

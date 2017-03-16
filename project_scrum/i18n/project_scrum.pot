@@ -145,6 +145,6 @@ msgstr ""
 
 #. module: project_scrum
 #: model:ir.model,name:project_scrum.model_project_sprint
-msgid "project.sprint"
+msgid "project.scrum.sprint"
 msgstr ""
 
