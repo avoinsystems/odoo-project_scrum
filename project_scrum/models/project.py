@@ -23,10 +23,8 @@ class ProjectProject(models.Model):
 
 class ProjectSprint(models.Model):
     _name = 'project.scrum.sprint'
-    _rec_name = 'display_name'
+
     name = fields.Char('Name', required=True)
-    display_name = fields.Char('Display Name', compute="_compute_display_name",
-                               store=True)
     start_date = fields.Date('Start Date', required=True)
     end_date = fields.Date('End Date', required=True)
     scrum_team_id = fields.Many2one('project.scrum.team', 'Scrum Team',
@@ -105,21 +103,9 @@ class ProjectSprint(models.Model):
             'view_mode': 'tree,form',
             'target': 'current',
             'name': self.name,
-            'display_name': self.display_name,
             'domain': [('sprint_id', '=', self.id)],
             'context': {'default_sprint_id': self.id,}
         }
-
-    @api.depends('name', 'start_date', 'end_date')
-    def _compute_display_name(self):
-        for sprint in self:
-            if sprint.end_date:
-                sprint.display_name = '%s - %s/%s' % (
-                    sprint.name,
-                    sprint.end_date[8:10],
-                    sprint.end_date[5:7])
-            else:
-                sprint.display_name = sprint.name
 
     _order = "start_date DESC"
 
