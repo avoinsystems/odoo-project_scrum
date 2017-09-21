@@ -47,18 +47,24 @@ class ProjectSprint(models.Model):
             old_previous = self.search([('is_previous_sprint', '=', True)])
             if old_previous:
                 old_previous.is_previous_sprint = False
-            old_current = self.search([('is_current_sprint', '=', True),
-                         ('id', '!=', self.id)])
+            old_current = self.search([
+                ('is_current_sprint', '=', True),
+                ('id', '!=', self.id),
+                ('scrum_team_id', '=', self.scrum_team_id.id),
+            ])
             if old_current:
                 old_current.is_current_sprint = False
-
                 old_current.is_previous_sprint = True
 
     @api.constrains("is_previous_sprint")
     def check_previous_sprint(self):
         self.ensure_one()
         self.check_is_not_both_previous_and_current()
-        if len(self.search([('is_previous_sprint', '=', True)])) > 1:
+        previous_sprints = self.search([
+            ('is_previous_sprint', '=', True),
+            ('scrum_team_id', '=', self.scrum_team_id.id),
+        ])
+        if len(previous_sprints) > 1:
             raise exceptions.ValidationError('A single previous sprint is '
                                              'permitted')
 
@@ -114,6 +120,12 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     sprint_id = fields.Many2one('project.scrum.sprint', 'Sprint')
+
+    scrum_team_id = fields.Many2one(
+        'project.scrum.team',
+        'Scrum Team',
+        related='sprint_id.scrum_team_id',
+    )
 
     @api.multi
     def go_to_sprint_action(self):
