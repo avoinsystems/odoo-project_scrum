@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_task_project_user_search_scrum" model="ir.ui.view">
+        <field name="name">report.project.task.user.search.scrum</field>
+        <field name="model">report.project.task.user</field>
+        <field name="inherit_id" ref="project.view_task_project_user_search"/>
+        <field name="arch" type="xml">
+
+            <filter name="project" position="after">
+                <filter string="Sprint" name="sprint" context="{'group_by': 'sprint_id'}"/>
+            </filter>
+
+        </field>
+    </record>
+
+</odoo>

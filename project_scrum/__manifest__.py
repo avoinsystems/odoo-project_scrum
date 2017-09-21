@@ -17,6 +17,7 @@
     'author': 'Avoin.Systems & Niboo',
     'depends': ['project'],
     'data': [
+        'report/project_report_views.xml',
         'views/project_view.xml',
         'security/ir.model.access.csv',
     ],
