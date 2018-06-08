@@ -120,9 +120,9 @@
                 <xpath expr="//field[@name='legend_done']" position="after">
                     <field name="sprint_id"/>
                 </xpath>
-                <xpath expr="//div[@class='oe_kanban_bottom_right']/img" position="before">
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
                     <t t-if="record.sprint_id.raw_value">
-                        <button class="pull-left btn btn-info btn-xs" type="object" name="go_to_sprint_action" style="margin-right: 5px;"><field name="sprint_id"/></button>
+                        <button class="pull-right btn btn-info btn-xs" type="object" name="go_to_sprint_action" style="margin-right: 5px;"><field name="sprint_id"/></button>
                     </t>
                 </xpath>
             </field>
