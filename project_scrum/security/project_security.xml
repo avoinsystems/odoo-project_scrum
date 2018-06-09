@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<odoo>
+<openerp>
+    <data>
     
     <record model="ir.rule" id="ps_sprint_rule">
         <field name="name">Sprint</field>
@@ -47,4 +48,5 @@
         <field name="global" eval="True"/>
     </record>
 
-</odoo>
+    </data>
+</openerp>

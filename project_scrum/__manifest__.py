@@ -9,7 +9,7 @@
     'category': "Project",
     'summary': 'Adds the ability to create Sprints and Scrum teams.',
     'website': 'https://avoin.systems/',
-    'version': '11.0.2.0.0',
+    'version': '2.0.0',
     'license': 'AGPL-3',
     'description': """
         This module allows you to organize your tasks with the Scrum methodology. Using sprints, you can easily plan when your tasks should be done.
