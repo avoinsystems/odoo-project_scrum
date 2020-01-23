@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Pierre Faniel
 # © 2016 Niboo SPRL (<https://www.niboo.be/>)
 # © 2017 Avoin.Systems (<https://avoin.systems/>)
@@ -9,7 +8,7 @@
     'category': "Project",
     'summary': 'Adds the ability to create Sprints and Scrum teams.',
     'website': 'https://avoin.systems/',
-    'version': '11.0.2.0.0',
+    'version': '13.0.1.0.0',
     'license': 'AGPL-3',
     'description': """
         This module allows you to organize your tasks with the Scrum methodology. Using sprints, you can easily plan when your tasks should be done.

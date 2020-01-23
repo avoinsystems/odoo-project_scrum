@@ -33,10 +33,14 @@ class ProjectSprint(models.Model):
     is_current_sprint = fields.Boolean('Is Current Sprint')
     is_previous_sprint = fields.Boolean('Is Previous Sprint')
 
-    @api.one
     def _task_count(self):
-        tasks = self.env['project.task'].search([('sprint_id', '=', self.id)])
-        self.task_count = len(tasks)
+        tasks = self.env['project.task'].read_group(
+            domain=[('sprint_id', 'in', self.ids)],
+            fields=['sprint_id'],
+            groupby=['sprint_id'])
+        sprint_counts = {group['sprint_id'][0]: group['sprint_id_count'] for group in tasks}
+        for sprint in self:
+            sprint.task_count = sprint_counts.get(sprint.id, 0)
 
     @api.constrains("is_current_sprint")
     def check_current_sprint(self):
@@ -67,7 +71,6 @@ class ProjectSprint(models.Model):
             raise exceptions.ValidationError('A single previous sprint is '
                                              'permitted')
 
-    @api.multi
     def check_is_not_both_previous_and_current(self):
         self.ensure_one()
         if self.is_current_sprint and self.is_previous_sprint:
@@ -75,7 +78,6 @@ class ProjectSprint(models.Model):
                                              ' and current at the same time')
 
     @api.constrains('start_date', 'end_date')
-    @api.multi
     def check_dates(self):
         for sprint in self:
             concurrent_sprints = self.search([
@@ -98,13 +100,11 @@ class ProjectSprint(models.Model):
             if concurrent_sprints:
                 raise exceptions.ValidationError('Sprints cannot overlap')
 
-    @api.multi
     def view_tasks_action(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'project.task',
-            'view_type': 'form',
             'view_mode': 'tree,form',
             'target': 'current',
             'name': self.name,
@@ -126,12 +126,10 @@ class ProjectTask(models.Model):
         related='sprint_id.scrum_team_id',
     )
 
-    @api.multi
     def go_to_sprint_action(self):
         self.ensure_one()
         return self.sprint_id.view_tasks_action()
 
-    @api.multi
     def assign_to_me(self):
         self.ensure_one()
         self.user_id = self._uid
