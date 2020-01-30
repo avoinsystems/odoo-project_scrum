@@ -7,6 +7,7 @@ from odoo import api, exceptions, fields, models
 
 class ProjectScrumTeam(models.Model):
     _name = 'project.scrum.team'
+    _description = 'Scrum Team'
 
     name = fields.Char('Name', required=True)
     sprint_ids = fields.One2many('project.scrum.sprint', 'scrum_team_id', 'Sprints')
@@ -22,6 +23,7 @@ class ProjectProject(models.Model):
 
 class ProjectSprint(models.Model):
     _name = 'project.scrum.sprint'
+    _description = 'Sprint'
 
     name = fields.Char('Name', required=True)
     start_date = fields.Date('Start Date', required=True)
