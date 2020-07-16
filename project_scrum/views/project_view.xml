@@ -136,7 +136,9 @@
                     context="{}"/>
 
         <menuitem name="Sprints" id="project_sprint_menuitem"
-                  parent="project.menu_project_management" sequence="5" action="project_sprint_action"/>
+                  parent="project.menu_project_config"
+                  sequence="5"
+                  action="project_sprint_action"/>
 
         <act_window id="project_scrum_team_action"
                     name="Scrum Teams"
